@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreComicRequest;
 
 class ComicController extends Controller
 {
@@ -36,10 +37,10 @@ class ComicController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreComicRequest $request)
     {
         // recupero tutti i dati
-        $data = $request->all();
+        $data = $request->validated();
         // creo il nuovo fumetto
         $new_comic = new Comic();
         $new_comic->fill($data);
@@ -78,10 +79,10 @@ class ComicController extends Controller
      * @param  \App\Models\Comic  $comic
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comic $comic)
+    public function update(StoreComicRequest $request, Comic $comic)
     {
-        // leggo i dati dalla request
-        $data = $request->all();
+        // recupero tutti i dati
+        $data = $request->validated();
         // faccio l'aggiornamento del comic usando il metodo update
         $comic->update($data);
         // redirect alla pagina del fumetto aggiornato
